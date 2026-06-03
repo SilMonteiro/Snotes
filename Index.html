@@ -3,37 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snotes</title>
-    <style>
-        body { font-family: sans-serif; max-width: 400px; margin: 40px auto; padding: 20px; }
-        .entrada-tarefa { display: flex; gap: 10px; margin-bottom: 20px; }
-        input { flex: 1; padding: 8px; }
-        ul { list-style: none; padding: 0; }
-        li { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #eee; }
-    </style>
+    <title>Login</title>
 </head>
 <body>
-
-    <h1>Minhas Tarefas</h1>
-    
-    <div class="entrada-tarefa">
-        <input type="text" id="nova-tarefa" placeholder="Nova tarefa...">
-        <button onclick="adicionarTarefa()">+</button>
+    <div class="login-container">
+    <h1>Bem-vindo ao Snotes =)</h1>
+    <p>Faça login para acessar suas notas e tarefas.</p>
+    <form action="Pages/tarefas.html">
+    <input type="email" required placeholder="Digite seu email">
+    <input type="password" required placeholder="Digite sua senha">
     </div>
+    </form>
 
-    <ul id="lista-tarefas">
-        <li>Exemplo de tarefa <button>X</button></li>
-    </ul>
-    <footer>
-        <p>
-            Desenvolvido por Silvia Monteiro
-        </p>
-    </footer>
-    <script>
-        function adicionarTarefa() {
-            alert('Botão clicado!');
-        }
-    </script>
+    <button type="submit">Entrar</button>
+</form>
 
 </body>
 </html>
