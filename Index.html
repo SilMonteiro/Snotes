@@ -9,18 +9,37 @@
 <body>
     <main>
         <div class="login-container">
-        <h1>Bem-vindo ao Snotes =)</h1>
-        <p>Faça login para acessar suas notas e tarefas.</p>
-        <form action="Pages/tarefas.html">
-        <input type="email" required placeholder="Digite seu email">
-        <input type="password" required placeholder="Digite sua senha aqui!">
-        </div>
-        </form>
-        <br>
-        <button type="submit"><a href="Pages/tarefas.html">Entrar</a></button>
-    </main>
-    </body>
-</form>
+            <h1>Bem-vindo ao Snotes =)</h1>
+            <p>Faça login para acessar suas notas e tarefas.</p>
 
+            <form id="form-login">
+                <input type="email" id="email" required placeholder="Digite seu email">
+                <input type="password" id="senha" required placeholder="Digite sua senha aqui!">
+                <button type="submit">Entrar</button>
+            </form>
+
+            <p id="erro" style="color:red; display:none">Email ou senha incorretos.</p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('form-login').onsubmit = async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            const res = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                body: JSON.stringify({ email, senha })
+            });
+
+            if (res.ok) {
+                window.location.href = 'Pages/tarefas.html';
+            } else {
+                document.getElementById('erro').style.display = 'block';
+            }
+        };
+    </script>
 </body>
 </html>
