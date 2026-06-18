@@ -11,14 +11,14 @@ const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Content-Type', 'application/json');
 
-    // ── PREFLIGHT CORS (navegador envia antes do POST) ─────
+    //PREFLIGHT CORS (navegador envia antes do POST)
     if (req.method === 'OPTIONS') {
         res.writeHead(200);
         res.end();
         return;
     }
 
-    // ── LOGIN ──────────────────────────────────────────────
+    //LOGIN
     if (req.method === 'POST' && req.url === '/login') {
         let body = '';
         req.on('data', chunk => body += chunk);
@@ -33,12 +33,12 @@ const server = http.createServer((req, res) => {
             }
         });
 
-    // ── TAREFAS: buscar ────────────────────────────────────
+    // TAREFAS: buscar
     } else if (req.method === 'GET' && req.url === '/tarefas') {
         const dados = fs.existsSync(ARQUIVO) ? fs.readFileSync(ARQUIVO) : '[]';
         res.end(dados);
 
-    // ── TAREFAS: salvar ────────────────────────────────────
+    // TAREFAS: salvar
     } else if (req.method === 'POST' && req.url === '/tarefas') {
         let body = '';
         req.on('data', chunk => body += chunk);
@@ -47,7 +47,7 @@ const server = http.createServer((req, res) => {
             res.end('{"ok":true}');
         });
 
-    // ── ROTA NÃO ENCONTRADA ────────────────────────────────
+    // ROTA NÃO ENCONTRADA 
     } else {
         res.writeHead(404);
         res.end('{}');
