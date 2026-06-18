@@ -21,17 +21,45 @@
         <button onclick="adicionarTarefa()">+</button>
     </div>
 
-    <ul id="lista-tarefas">
-        <li>Exemplo de tarefa <button>X</button></li>
-    </ul>
+    <ul id="lista-tarefas"></ul>
+
     <footer>
-        <p>
-            Desenvolvido por Silvia Monteiro
-        </p>
+        <p>Desenvolvido por Silvia Monteiro</p>
     </footer>
+
     <script>
+        window.onload = async () => {
+            const res = await fetch('http://localhost:3000/tarefas');
+            const tarefas = await res.json();
+            tarefas.forEach(texto => renderizar(texto));
+        };
+
+        function renderizar(texto) {
+            const li = document.createElement('li');
+            li.innerHTML = `${texto} <button onclick="remover(this)">X</button>`;
+            document.getElementById('lista-tarefas').appendChild(li);
+        }
+
+        function remover(btn) {
+            btn.parentElement.remove();
+            salvar();
+        }
+
+        async function salvar() {
+            const tarefas = [...document.querySelectorAll('#lista-tarefas li')]
+                .map(li => li.firstChild.textContent.trim());
+            await fetch('http://localhost:3000/tarefas', {
+                method: 'POST',
+                body: JSON.stringify(tarefas)
+            });
+        }
+
         function adicionarTarefa() {
-            alert('Botão clicado!');
+            const texto = document.getElementById('nova-tarefa').value;
+            if (!texto.trim()) return;
+            renderizar(texto);
+            salvar();
+            document.getElementById('nova-tarefa').value = '';
         }
     </script>
 
